@@ -12,7 +12,7 @@ A simple Cloudflare Worker that displays visitor's IP address, location, device 
 
 ## Demo
 
-[https://i.ixa.workers.dev/](https://i.ixa.workers.dev/)
+[https://5ip.ir/](https://5ip.ir/)
 
 ![Web Interface Screenshot](screenshot.png)
 
@@ -37,6 +37,6 @@ A simple Cloudflare Worker that displays visitor's IP address, location, device 
 
 **In Terminal:** 
 ```bash
-curl https://i.ixa.workers.dev
+curl 5ip.ir
 ```
 
