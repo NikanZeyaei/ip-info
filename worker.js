@@ -101,9 +101,35 @@ async function handleRequest(request) {
         const acceptHeader = request.headers.get('Accept') || '';
         const isCurl = (userAgent && userAgent.toLowerCase().includes('curl')) || acceptHeader.includes('application/json');
         const flagEmoji = getFlagEmoji(ipData.location?.country_code);
+        const { pathname } = new URL(request.url);
 
-        // Return terminal-formatted output for curl requests
         if (isCurl) {
+            if (pathname === '/json') {
+                const jsonData = {
+                    ip: clientIp,
+                    country: ipData.location?.country || 'Unknown',
+                    country_code: ipData.location?.country_code || 'Unknown',
+                    flag: flagEmoji,
+                    region: ipData.location?.state || 'Unknown',
+                    city: ipData.location?.city || 'Unknown',
+                    isp: ipData.company?.name || 'Unknown',
+                    latitude: ipData.location?.latitude || 'Unknown',
+                    longitude: ipData.location?.longitude || 'Unknown',
+                    timezone: ipData.location?.timezone || 'Unknown',
+                    is_proxy: ipData.is_proxy,
+                    is_vpn: ipData.is_vpn,
+                    is_tor: ipData.is_tor,
+                    is_datacenter: ipData.is_datacenter,
+                    is_abuser: ipData.is_abuser,
+                    user_agent: userAgent,
+                    ua_info: uaInfo
+                };
+                return new Response(jsonData, {
+                    headers: { 'Content-Type': 'application/json; charset=utf-8' },
+                    status: 200,
+                });
+            }
+            // Return terminal-formatted output for curl requests
             // ANSI color codes for terminal output
             const cyan = '\x1b[36m', green = '\x1b[32m', yellow = '\x1b[33m', 
                   magenta = '\x1b[35m', red = '\x1b[31m', reset = '\x1b[0m', bold = '\x1b[1m';
