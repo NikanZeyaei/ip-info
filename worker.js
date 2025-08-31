@@ -124,7 +124,7 @@ async function handleRequest(request) {
                     user_agent: userAgent,
                     ua_info: uaInfo
                 };
-                return new Response(jsonData, {
+                return new Response(JSON.stringify(jsonData, null, 2), {
                     headers: { 'Content-Type': 'application/json; charset=utf-8' },
                     status: 200,
                 });
